@@ -69,6 +69,7 @@ RUN set -xe \
 	&& rm -r "$GNUPGHOME"
 
 COPY docker-php-source /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-php-source
 
 RUN set -xe \
 	&& buildDeps=" \
