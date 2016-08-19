@@ -153,6 +153,6 @@ RUN set -ex \
 	} | tee php-fpm.d/zz-docker.conf
 
 COPY entrypoint.sh /usr/local/bin/entrypoint.sh
-EXPOSE 80 443 9000
+RUN chmod +x /usr/local/bin/entrypoint.sh
 
 ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
