@@ -26,7 +26,8 @@ RUN sed -i "s/nginx/root/g" /etc/nginx/nginx.conf
 #Installing PHP
 
 COPY php/docker-php-ext-* /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-ext-*
+COPY docker-php-source /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-php-*
 
 ENV PHPIZE_DEPS \
 		autoconf \
