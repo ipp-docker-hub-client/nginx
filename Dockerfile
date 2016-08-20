@@ -21,7 +21,7 @@ RUN apt-key adv --keyserver hkp://pgp.mit.edu:80 --recv-keys 573BFD6B3D8FBC64107
 RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
-RUN sed -i "s/www-data/root/g" /etc/nginx/nginx.conf
+RUN sed -i "s/nginx/root/g" /etc/nginx/nginx.conf
 
 #Installing PHP
 ENV PHPIZE_DEPS \
@@ -152,7 +152,7 @@ RUN set -ex \
 		echo 'listen = [::]:9000'; \
 	} | tee php-fpm.d/zz-docker.conf
 
-COPY entrypoint.sh /usr/local/bin/entrypoint.sh
+ADD entrypoint.sh /usr/local/bin/
 RUN chmod +x /usr/local/bin/entrypoint.sh
 
-ENTRYPOINT ["/usr/local/bin/entrypoint.sh"]
+ENTRYPOINT ["entrypoint.sh"]
