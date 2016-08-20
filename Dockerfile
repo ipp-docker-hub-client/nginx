@@ -68,8 +68,8 @@ RUN set -xe \
 	&& gpg --batch --verify php.tar.xz.asc php.tar.xz \
 	&& rm -r "$GNUPGHOME"
 
-COPY docker-php-source /usr/local/bin/
-RUN chmod +x /usr/local/bin/docker-php-source
+COPY docker-php-* /usr/local/bin/
+RUN chmod +x /usr/local/bin/docker-php-*
 
 RUN set -xe \
 	&& buildDeps=" \
