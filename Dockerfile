@@ -25,7 +25,7 @@ RUN sed -i "s/nginx/root/g" /etc/nginx/nginx.conf
 
 #Installing PHP
 
-COPY docker-php-* /usr/local/bin/
+COPY php/docker-php-* /usr/local/bin/
 RUN chmod +x /usr/local/bin/docker-php-*
 
 ENV PHPIZE_DEPS \
