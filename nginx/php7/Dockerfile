@@ -22,6 +22,7 @@ RUN ln -sf /dev/stdout /var/log/nginx/access.log \
 	&& ln -sf /dev/stderr /var/log/nginx/error.log
 
 RUN sed -i "s/nginx;/root;/g" /etc/nginx/nginx.conf
+RUN sed -i "s/worker_processes 1/worker_processes 2/g" /etc/nginx/nginx.conf
 
 #Installing PHP
 
