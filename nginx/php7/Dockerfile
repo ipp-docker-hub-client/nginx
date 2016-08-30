@@ -104,6 +104,7 @@ RUN set -xe \
 		--with-libedit \
 		--with-openssl \
 		--with-zlib \
+		--with-pdo \
 		\
 		$PHP_EXTRA_CONFIGURE_ARGS \
 	&& make -j"$(nproc)" \
@@ -151,7 +152,7 @@ RUN set -ex \
 		echo; \
 		echo '[www]'; \
 		echo 'listen = [::]:9000'; \
-	} | tee php-fpm.d/zz-docker.conf
+	} | tee php-fpm.d/default-docker.conf
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
