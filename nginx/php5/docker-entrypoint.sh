@@ -1,5 +1,9 @@
 #!/bin/bash
 
+if [ -z "$nginx_port" ]; then
+    sed -i 's/listen       80;/listen '"$nginx_port"';/g' /etc/nginx/conf.d/default.conf
+fi  
+
 if [[ "$1" == nginx ]] || [ "$1" == php-fpm ]; 
 then
   mkdir /var/www/html
@@ -12,4 +16,3 @@ then
 else
  exec "$@"
 fi
-
