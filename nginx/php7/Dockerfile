@@ -1,4 +1,6 @@
-FROM ipropertygroup/base:latest
+FROM debian:jessie
+MAINTAINER MOHSEN@IPROPERTY
+ENV DEBIAN_FRONTEND noninteractive
 
 #Installing Nginx
 ENV NGINX_VERSION 1.10.1-1~jessie
@@ -163,15 +165,14 @@ RUN curl -sL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
     && apt-get install -y newrelic-php5 \ 
     && apt-get clean \
     && newrelic-install install
-COPY newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
+COPY conf/newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
 
 # install sumologic
 ENV SUMOLOGIC_KEY **None**
 RUN curl -L -o /tmp/sumocollector.deb https://collectors.au.sumologic.com/rest/download/deb/64 \
     && dpkg -i /tmp/sumocollector.deb \
     && rm -f /tmp/sumocollector.deb
-COPY sumologic.conf /etc/sumo.conf
-
+COPY conf/sumologic.conf /etc/sumo.conf
 
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
