@@ -3,7 +3,6 @@ set -e
 
 if [[ "$1" == nginx ]] || [ "$1" == php-fpm ]; 
 then
-  mkdir /var/www/html
   echo "<?php phpinfo(); ?>" > /var/www/html/info.php
   chown -R 0:0 /var/www/html
   echo "Selecting configuration based on environment ..."
