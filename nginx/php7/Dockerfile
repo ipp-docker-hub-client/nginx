@@ -154,7 +154,27 @@ RUN set -ex \
 		echo 'listen = [::]:9000'; \
 	} | tee php-fpm.d/default-docker.conf
 
+# install NewRelic
+ENV NR_INSTALL_SILENT true
+ENV NEWRELIC_LICENSE **None**
+RUN curl -sL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
+    && sh -c 'echo "deb http://apt.newrelic.com/debian/ newrelic non-free" > /etc/apt/sources.list.d/newrelic.list' \
+    && apt-get update \
+    && apt-get install -y newrelic-php5 \ 
+    && apt-get clean \
+    && newrelic-install install
+COPY newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
+
+# install sumologic
+ENV SUMOLOGIC_KEY **None**
+RUN curl -L -o /tmp/sumocollector.deb https://collectors.au.sumologic.com/rest/download/deb/64 \
+    && dpkg -i /tmp/sumocollector.deb \
+    && rm -f /tmp/sumocollector.deb
+COPY sumologic.conf /etc/sumo.conf
+
+
 COPY docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
+
 ENTRYPOINT ["/entrypoint.sh"]
-CMD ["nginx"]
+CMD ["php-fpm"]
