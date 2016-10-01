@@ -160,8 +160,3 @@ RUN curl -L -o /tmp/sumocollector.deb https://collectors.au.sumologic.com/rest/d
  && rm -f /tmp/sumocollector.deb
 COPY conf/sumologic.conf /etc/sumo.conf
 
-ADD docker-entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["php-fpm"]
