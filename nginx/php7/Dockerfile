@@ -151,14 +151,7 @@ RUN curl -sL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
  && apt-get install -y newrelic-php5 \ 
  && apt-get clean \
  && newrelic-install install
-COPY conf/newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
-
-# install sumologic
-ENV SUMOLOGIC_KEY **None**
-RUN curl -L -o /tmp/sumocollector.deb https://collectors.au.sumologic.com/rest/download/deb/64 \
- && dpkg -i /tmp/sumocollector.deb \
- && rm -f /tmp/sumocollector.deb
-COPY conf/sumologic.conf /etc/sumo.conf
+COPY newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
 
 ADD docker-entrypoint.sh /entrypoint.sh
 RUN chmod +x /entrypoint.sh
