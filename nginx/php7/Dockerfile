@@ -142,19 +142,3 @@ RUN set -ex \
     echo 'listen = [::]:9000'; \
     } | tee php-fpm.d/default-docker.conf
 
-# install NewRelic
-ENV NR_INSTALL_SILENT true
-ENV NEWRELIC_LICENSE **None**
-RUN curl -sL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
- && sh -c 'echo "deb http://apt.newrelic.com/debian/ newrelic non-free" > /etc/apt/sources.list.d/newrelic.list' \
- && apt-get update \
- && apt-get install -y newrelic-php5 \ 
- && apt-get clean \
- && newrelic-install install
-COPY newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
-
-ADD docker-entrypoint.sh /entrypoint.sh
-RUN chmod +x /entrypoint.sh
-
-ENTRYPOINT ["/entrypoint.sh"]
-CMD ["php-fpm"]
