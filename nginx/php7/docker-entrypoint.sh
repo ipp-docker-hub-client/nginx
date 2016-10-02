@@ -16,17 +16,6 @@ then
       echo "Environment veriable is not set! Task aborted."
     fi
   echo "Done."
-  echo "Setting up Sumologic configs ..."
-    if [ "${SUMOLOGIC_KEY}" != "**None**" ]
-    then
-      sed -i "s/SLNAME/"${SUMOLOGIC_NAME}"/g" /etc/sumo.conf
-      sed -i "s/SLID/"${SUMOLOGIC_ID}"/g" /etc/sumo.conf
-      sed -i "s/SLKEY/"${SUMOLOGIC_KEY}"/g" /etc/sumo.conf
-      service collector start 
-    else
-      echo "No Sumologic key found! Task aborted."
-    fi
-  echo "Done."
   echo "Setting up Newrelic configs ..."
     if [ "${NEWRELIC_LICENSE}" != "**None**" ]
     then
