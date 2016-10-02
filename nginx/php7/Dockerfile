@@ -153,3 +153,8 @@ RUN curl -sL https://download.newrelic.com/548C16BF.gpg | apt-key add - \
  && newrelic-install install
 COPY newrelic.ini /usr/local/etc/php/conf.d/newrelic.ini
 
+ADD docker-entrypoint.sh /entrypoint.sh
+RUN chmod +x /entrypoint.sh
+
+ENTRYPOINT ["/entrypoint.sh"]
+CMD ["php-fpm"]
